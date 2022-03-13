@@ -1,5 +1,5 @@
 const CELL_SIZE = 20;
-const CANVAS_SIZE = 600;
+const CANVAS_SIZE = 500;
 const REDRAW_INTERVAL = 50;
 const WIDTH = CANVAS_SIZE / CELL_SIZE;
 const HEIGHT = CANVAS_SIZE / CELL_SIZE;
@@ -10,7 +10,7 @@ const DIRECTION = {
     UP: 2,
     DOWN: 3,
 }
-// Soal no 2: Pengaturan Speed (semakin kecil semakin cepat) ubah dari 150 ke 120
+
 const MOVE_INTERVAL = 120;
 
 function initPosition() {
@@ -159,6 +159,8 @@ function moveUp(snake) {
     teleport(snake);
     eat(snake, apple1, apple2);
 }
+
+
 
 function move(snake) {
     switch (snake.direction) {
