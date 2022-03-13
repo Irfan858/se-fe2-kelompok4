@@ -39,6 +39,11 @@ let apple1 = {
 }
 // Soal no 4: add apple2
 let apple2 = {
+    color: "blue",
+    position: initPosition(),
+}
+
+let life = {
     color: "green",
     position: initPosition(),
 }
@@ -74,6 +79,9 @@ function draw() {
         let img = document.getElementById("apple");
         ctx.drawImage(img, apple1.position.x * CELL_SIZE, apple1.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         ctx.drawImage(img, apple2.position.x * CELL_SIZE, apple2.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
+        let lifeImg = document.getElementById("life");
+        ctx.drawImage(lifeImg, life.position.x * CELL_SIZE, life.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 
         drawScore(snake1);
     }, REDRAW_INTERVAL);
