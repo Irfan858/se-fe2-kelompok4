@@ -56,7 +56,7 @@ let apple1 = {
     color: "red",
     position: initPosition(),
 }
-// Soal no 4: add apple2
+
 let apple2 = {
     color: "blue",
     position: initPosition(),
