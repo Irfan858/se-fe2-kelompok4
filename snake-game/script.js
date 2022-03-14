@@ -43,6 +43,7 @@ function initSnake(color)
     ...initHeadAndBody(),
     direction: initDirection(),
     score: 0,
+    life: 3,
     }
 }
 
@@ -82,6 +83,30 @@ function drawScore(snake) {
     scoreCtx.fillText(snake.score, 10, scoreCanvas.scrollHeight / 2);
 }
 
+function drawSpeed()
+{
+    let speedCanvas;
+    speedCanvas = document.getElementById("speedBoard");
+
+    let speedCtx = speedCanvas.getContext("2d");
+
+    speedCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    speedCtx.font = "30px Arial";
+    speedCtx.fillText(MOVE_INTERVAL, 10, speedCanvas.scrollHeight / 2);
+}
+
+function drawLife(snake)
+{
+    let speedCanvas;
+    speedCanvas = document.getElementById("lifeBoard");
+
+    let speedCtx = speedCanvas.getContext("2d");
+
+    speedCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    speedCtx.font = "30px Arial";
+    speedCtx.fillText(snake.life, 10, speedCanvas.scrollHeight / 2);
+}
+
 function draw() {
     setInterval(function() {
         let snakeCanvas = document.getElementById("snakeBoard");
@@ -108,6 +133,8 @@ function draw() {
 
 
         drawScore(snake1);
+        drawLife(snake1);
+        drawSpeed();
     }, REDRAW_INTERVAL);
 }
 
@@ -137,10 +164,11 @@ function eat(snake, apple1, apple2, life) {
         snake.score++;
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
-
+  
     if (snake.head.x == life.position.x && snake.head.y == life.position.y) {
         life.position = initPosition();
         snake.score++;
+        snake.life++;
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
 }
