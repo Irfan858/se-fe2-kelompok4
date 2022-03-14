@@ -266,10 +266,12 @@ function teleport(snake) {
 
 function level(snake)
 {
+    let levelUpAudio = new Audio("assets/audio/level up.wav");
     if (snake.level == 1 && snake.score == 5)
     {
         snake.level++;
         alert("Level 1 Complete");
+        levelUpAudio.play();
         MOVE_INTERVAL -= 20;
     }
     
@@ -277,6 +279,7 @@ function level(snake)
     {
         snake.level++;
         alert("Level 2 Complete");
+        levelUpAudio.play();
         MOVE_INTERVAL -= 20;
     }
     
@@ -284,6 +287,7 @@ function level(snake)
     {
         snake.level++;
         alert("Level Up");
+        levelUpAudio.play();
         MOVE_INTERVAL -= 20;
     }
 
@@ -291,6 +295,7 @@ function level(snake)
     {
         snake.level++;
         alert("Level Up");
+        levelUpAudio.play();
         MOVE_INTERVAL -= 20;
     }
 
@@ -408,7 +413,9 @@ function move(snake) {
 
 function gameOver()
 {
+    let gameOverAudio = new Audio("assets/audio/game over.wav");
     alert("Game over");
+    gameOverAudio.play();
     initGame();
     snake1 = initSnake("green");
 }
