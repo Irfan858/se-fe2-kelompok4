@@ -1,4 +1,5 @@
 const CELL_SIZE = 20;
+const CELL_HEAD= 40;
 const CANVAS_SIZE = 500;
 const REDRAW_INTERVAL = 50;
 const WIDTH = CANVAS_SIZE / CELL_SIZE;
@@ -45,7 +46,7 @@ function initSnake(color)
     }
 }
 
-let snake1 = initSnake("purple");
+let snake1 = initSnake("green");
 
 
 let apple1 = {
@@ -59,7 +60,7 @@ let apple2 = {
 }
 
 let life = {
-    color: "green",
+    color: "purple",
     position: initPosition(),
 }
 
@@ -88,7 +89,7 @@ function draw() {
 
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-        drawCell(ctx, snake1.head.x, snake1.head.y, snake1.color);
+        //drawCell(ctx, snake1.head.x, snake1.head.y, snake1.color);
 
         for (let i = 1; i < snake1.body.length; i++)
         {
@@ -101,6 +102,10 @@ function draw() {
 
         let lifeImg = document.getElementById("life");
         ctx.drawImage(lifeImg, life.position.x * CELL_SIZE, life.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
+        let snakeimg = document.getElementById("snake-head");
+        ctx.drawImage(snakeimg, snake1.head.x * CELL_SIZE, snake1.head.y * CELL_SIZE, CELL_HEAD, CELL_HEAD);
+
 
         drawScore(snake1);
     }, REDRAW_INTERVAL);
