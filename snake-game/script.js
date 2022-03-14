@@ -45,7 +45,7 @@ function initSnake(color)
     score: 0,
     life: 3,
     level: 1,
-    multiple: 1,
+    multiple: 0,
     }
 }
 
@@ -82,7 +82,7 @@ let obstacle = {
     color: "black",
     position : {
         x: 10,
-        y: 10,
+        y: 5,
     }
 }
 
@@ -185,9 +185,82 @@ function draw() {
             drawCell(ctx, obstacle.position.x + 4, obstacle.position.y, obstacle.color);
         }
 
+        function level_3_obs()
+        {
+            drawCell(ctx, obstacle.position.x, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 1, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 2, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 3, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 4, obstacle.position.y, obstacle.color);
+
+            drawCell(ctx, obstacle.position.x, obstacle.position.y + 10, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 1, obstacle.position.y+10, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 2, obstacle.position.y+10, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 3, obstacle.position.y+10, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 4, obstacle.position.y+10, obstacle.color);
+        }
+
+        function level_4_obs()
+        {
+            drawCell(ctx, obstacle.position.x, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 1, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 2, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 3, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 4, obstacle.position.y, obstacle.color);
+
+            drawCell(ctx, obstacle.position.x, obstacle.position.y + 10, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 1, obstacle.position.y+10, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 2, obstacle.position.y+10, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 3, obstacle.position.y+10, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 4, obstacle.position.y+10, obstacle.color);
+        }
+
+        function level_5_obs()
+        {
+            drawCell(ctx, obstacle.position.x, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 1, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 2, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 3, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 4, obstacle.position.y, obstacle.color);
+
+            drawCell(ctx, obstacle.position.x, obstacle.position.y + 10, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 1, obstacle.position.y+10, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 2, obstacle.position.y+10, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 3, obstacle.position.y+10, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 4, obstacle.position.y+10, obstacle.color);
+
+            drawCell(ctx, obstacle.position.x, obstacle.position.y + 20, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 1, obstacle.position.y+20, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 2, obstacle.position.y+20, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 3, obstacle.position.y+20, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 4, obstacle.position.y+20, obstacle.color);
+
+            drawCell(ctx, obstacle.position.x, obstacle.position.y + 15, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 1, obstacle.position.y+15, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 2, obstacle.position.y+15, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 3, obstacle.position.y+15, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 4, obstacle.position.y+15, obstacle.color);
+        }
+
+
         if (snake1.level == 2)
         {
             level_2_obs();
+        }
+
+        if(snake1.level == 3)
+        {
+            level_3_obs();
+        }
+
+        if(snake1.level == 4)
+        {
+            level_4_obs();
+        }
+
+        if(snake1.level == 5)
+        {
+            level_5_obs();
         }
 
         let img = document.getElementById("apple");
@@ -228,29 +301,48 @@ function level(snake)
     if (snake.level == 1 && snake.score == 5)
     {
         snake.level++;
-        snake.multiple++;
-        alert("Level Up");
+        alert("Level 1 Complete");
         MOVE_INTERVAL -= 20;
     }
     
-    if (snake.level == 2 && snake.score == 30)
+    if (snake.level == 2 && snake.score == 10)
     {
         snake.level++;
-        snake.multiple++;
+        alert("Level 2 Complete");
+        MOVE_INTERVAL -= 20;
+    }
+    
+    if (snake.level == 3 && snake.score == 15)
+    {
+        snake.level++;
         alert("Level Up");
         MOVE_INTERVAL -= 20;
+    }
+
+    if (snake.level == 4 && snake.score == 20)
+    {
+        snake.level++;
+        alert("Level Up");
+        MOVE_INTERVAL -= 20;
+    }
+
+    if (snake.level == 5 && snake.score == 25)
+    {
+        alert("All Level Complete");
+        initGame();
+        snake1 = initSnake('Green');
     }
 }
 
 function eat(snake, apple1, apple2, life, obstacle) {
     if (snake.head.x == apple1.position.x && snake.head.y == apple1.position.y) {
         apple1.position = initPosition();
-        snake.score+= snake.multiple;
+        snake.score++
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
     if (snake.head.x == apple2.position.x && snake.head.y == apple2.position.y) {
         apple2.position = initPosition();
-        snake.score+= snake.multiple;
+        snake.score++
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
   
