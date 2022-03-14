@@ -1,4 +1,5 @@
 const CELL_SIZE = 20;
+const CELL_HEAD = 40;
 const CANVAS_SIZE = 500;
 const REDRAW_INTERVAL = 50;
 const WIDTH = CANVAS_SIZE / CELL_SIZE;
@@ -103,6 +104,10 @@ function draw() {
 
         let lifeImg = document.getElementById("life");
         ctx.drawImage(lifeImg, life.position.x * CELL_SIZE, life.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
+        // let snakeimg = document.getElementById("snake-head");
+        // ctx.drawImage(snakeimg, snake1.position.x * CELL_SIZE, snake1.position.y * CELL_SIZE, CELL_HEAD, CELL_HEAD);
+
 
         drawScore(snake1);
     }, REDRAW_INTERVAL);
