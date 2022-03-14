@@ -129,6 +129,7 @@ function drawLevel(snake)
     levelCtx.fillText(snake.level, 10, levelCanvas.scrollHeight / 2);
 }
 
+
 function draw() {
     setInterval(function() {
         let snakeCanvas = document.getElementById("snakeBoard");
@@ -328,12 +329,6 @@ function eat(snake, apple1, apple2, life, obstacle) {
 
     if (snake.head.x == obstacle.position.x && snake.head.y == obstacle.position.y) {
         snake.life--;
-  
-    if (snake.head.x == life.position.x && snake.head.y == life.position.y) {
-        life.position = initPosition();
-        snake.score++;
-        snake.life++;
-        snake.body.push({x: snake.head.x, y: snake.head.y});
     }
 }
 
@@ -351,7 +346,7 @@ function moveRight(snake) {
 
 function moveDown(snake) {
     snake.head.y++;
-    teleport(snake)
+    teleport(snake);
     eat(snake, apple1, apple2, life, obstacle);
 }
 
@@ -372,6 +367,7 @@ function checkCollision(snake) {
                 }
             }
         }
+
     }
     if (isCollide) {
         gameOver();
