@@ -45,6 +45,7 @@ function initSnake(color)
     score: 0,
     life: 3,
     level: 1,
+    multiple: 1,
     }
 }
 
@@ -75,6 +76,14 @@ let apple1 = {
 let apple2 = {
     color: "blue",
     position: initPosition(),
+}
+
+let obstacle = {
+    color: "black",
+    position : {
+        x: 10,
+        y: 10,
+    }
 }
 
 let life = {
@@ -136,6 +145,7 @@ function drawLevel(snake)
     levelCtx.fillText(snake.level, 10, levelCanvas.scrollHeight / 2);
 }
 
+
 function draw() {
     setInterval(function() {
         let snakeCanvas = document.getElementById("snakeBoard");
@@ -148,6 +158,36 @@ function draw() {
         for (let i = 1; i < snake1.body.length; i++)
         {
             drawCell(ctx, snake1.body[i].x, snake1.body[i].y, snake1.color);
+        }
+
+        // function levelObstacle()
+        // {
+        //     for (let x = 1; x <= 5; x++)
+        //     {
+        //         drawCell(ctx, obstacle.position.x + x, obstacle.position.y, obstacle.color);
+        //     }
+        // }
+        //levelObstacle();
+
+        
+        
+        // for (let x = 1; x <= 5; x++)
+        //     {
+        //         drawCell(ctx, obstacle.position.x + x, obstacle.position.y, obstacle.color);
+        //     }
+
+        function level_2_obs()
+        {
+            drawCell(ctx, obstacle.position.x, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 1, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 2, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 3, obstacle.position.y, obstacle.color);
+            drawCell(ctx, obstacle.position.x + 4, obstacle.position.y, obstacle.color);
+        }
+
+        if (snake1.level == 2)
+        {
+            level_2_obs();
         }
 
         let img = document.getElementById("apple");
@@ -188,27 +228,29 @@ function level(snake)
     if (snake.level == 1 && snake.score == 5)
     {
         snake.level++;
+        snake.multiple++;
         alert("Level Up");
         MOVE_INTERVAL -= 20;
     }
     
-    if (snake.level == 2 && snake.score == 10)
+    if (snake.level == 2 && snake.score == 30)
     {
-        level++;
+        snake.level++;
+        snake.multiple++;
         alert("Level Up");
         MOVE_INTERVAL -= 20;
     }
 }
 
-function eat(snake, apple1, apple2, life) {
+function eat(snake, apple1, apple2, life, obstacle) {
     if (snake.head.x == apple1.position.x && snake.head.y == apple1.position.y) {
         apple1.position = initPosition();
-        snake.score++;
+        snake.score+= snake.multiple;
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
     if (snake.head.x == apple2.position.x && snake.head.y == apple2.position.y) {
         apple2.position = initPosition();
-        snake.score++;
+        snake.score+= snake.multiple;
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
   
@@ -218,30 +260,34 @@ function eat(snake, apple1, apple2, life) {
         snake.life++;
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
+
+    if (snake.head.x == obstacle.position.x && snake.head.y == obstacle.position.y) {
+        snake.life--;
+    }
 }
 
 function moveLeft(snake) {
     snake.head.x--;
     teleport(snake);
-    eat(snake, apple1, apple2, life);
+    eat(snake, apple1, apple2, life, obstacle);
 }
 
 function moveRight(snake) {
     snake.head.x++;
     teleport(snake);
-    eat(snake, apple1, apple2, life);
+    eat(snake, apple1, apple2, life, obstacle);
 }
 
 function moveDown(snake) {
     snake.head.y++;
     teleport(snake);
-    eat(snake, apple1, apple2, life);
+    eat(snake, apple1, apple2, life, obstacle);
 }
 
 function moveUp(snake) {
     snake.head.y--;
     teleport(snake);
-    eat(snake, apple1, apple2, life);
+    eat(snake, apple1, apple2, life, obstacle);
 }
 
 function checkCollision(snake) {
@@ -255,10 +301,10 @@ function checkCollision(snake) {
                 }
             }
         }
+
     }
     if (isCollide) {
-        alert("Game over");
-        snake1 = initSnake("purple");
+        gameOver();
     }
     return isCollide;
 }
@@ -288,8 +334,19 @@ function move(snake) {
     } else {
         initGame();
     }
+
+    if (snake1.life <= 0)
+    {
+        gameOver();
+    }
 }
 
+function gameOver()
+{
+    alert("Game over");
+    initGame();
+    snake1 = initSnake("green");
+}
 function moveBody(snake)
 {
     snake.body.unshift({x: snake.head.x, y: snake.head.y});
