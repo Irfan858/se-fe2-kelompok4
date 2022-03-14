@@ -126,14 +126,14 @@ function drawLife(snake)
 
 function drawLevel(snake)
 {
-    let speedCanvas;
-    speedCanvas = document.getElementById("lifeBoard");
+    let levelCanvas;
+    levelCanvas = document.getElementById("levelBoard");
 
-    let speedCtx = speedCanvas.getContext("2d");
+    let levelCtx = levelCanvas.getContext("2d");
 
-    speedCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    speedCtx.font = "30px Arial";
-    speedCtx.fillText(snake.level, 10, speedCanvas.scrollHeight / 2);
+    levelCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    levelCtx.font = "30px Arial";
+    levelCtx.fillText(snake.level, 10, levelCanvas.scrollHeight / 2);
 }
 
 function draw() {
@@ -186,6 +186,13 @@ function teleport(snake) {
 function level(snake)
 {
     if (snake.level == 1 && snake.score == 5)
+    {
+        snake.level++;
+        alert("Level Up");
+        MOVE_INTERVAL -= 20;
+    }
+    
+    if (snake.level == 2 && snake.score == 10)
     {
         level++;
         alert("Level Up");
@@ -276,6 +283,7 @@ function move(snake) {
     if (!checkCollision([snake1])) {
         setTimeout(function() {
             move(snake);
+            level(snake);
         }, MOVE_INTERVAL);
     } else {
         initGame();
@@ -304,7 +312,6 @@ document.addEventListener("keydown", function (event) {
 function initGame()
 {
     move(snake1);
-    level(snake1);
 }
 
 initGame();
